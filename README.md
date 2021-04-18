@@ -1,1 +1,13 @@
-# National-COVID19-Management-System
+## National-COVID19-Management-System
+
+### *Problem Statement* 
+
+Wakanda is a small island nation having only five districts. It maintains a good healthcare system having one base hospital per district. As the COVID19 is spreading all over the world so fast, the Ministry of Health (MoH) wants to build a National COVID Management System (NCMS) immediately to efficiently manage the situation. It should involve citizens, hospitals, doctors, and authorities of the country. Your task is to model and implement a system that will comply with the requirements of MoH.
+
+At the moment, none of the hospitals are full in Wakanda. Moreover, a base hospital has 10 beds. Each hospital in the country has its geolocations depicted by X, Y coordinates. Every hospital has a chief doctor - director, who manages the hospital. 
+
+WIth NCMS, the MoH plans to instruct its citizens that if anyone shows COVID19 symptoms, they should immediately register in NCMS with the geolocation coordinates of the home. Once registered, NCMS will search for hospitals with available beds in the whole country. If a bed is available, NCMS will allocate a bed of the nearest hospital to the patient with a serial number (unique). This serial number with the hospital information (with bed number)  is then sent back to the patient. At the same time, the serial number with patient information should be visible to the hospital staff. Upon the patient's arrival, doctors will assess the severity and assign a level (low, moderate, and critical) and take to the assigned bed. If a bed is not available, NCMS will put the patient into a queue with a serial number, and the patient will be notified with the serial number and the queue number. Once a patient is fully recovered, the director discharges the patient. 
+
+MoH authorities do the overall management of the healthcare system of the country. If the queue of patients (without beds allocated) exceeds 4 allocations, MoH will build another hospital in the district in which the majority of patients in the queue are from. If the number of districts is equal, then MoH will build the hospital in the district where the first patient in the queue belongs. The new hospital will be 10 unit lengths apart from the base hospital. Based on the statistics, MoH knows they will never want to build more than 5 hospitals in a district. Every new hospital will have 10 beds, and once built, all patients in the queue should be admitted to that hospital. Similar to a general patient admitting flow, in this case too, patients should be notified with the hospital information and the bed number along with the same serial number sent earlier.
+
+Apart from the above requirements, NCMS should also show statistics to the public and MoH.
