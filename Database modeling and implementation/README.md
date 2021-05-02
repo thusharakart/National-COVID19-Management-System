@@ -1,0 +1,1 @@
+##### This includes the eer diagram, relational data model and sql query for database creation.
