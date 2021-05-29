@@ -18,7 +18,7 @@ public class HospitalController {
         this.hospitalService = hospitalService;
     }
 
-    @GetMapping
+    @GetMapping(path = "/findall")
     public List<Hospital> getHospital(){
         return hospitalService.getHospital();
     }

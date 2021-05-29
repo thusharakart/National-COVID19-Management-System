@@ -50,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("api/doctor/add/").hasAnyAuthority("ADMIN", "MOH", "CHIEF_DOCTOR")
                 .antMatchers("api/patient/add/").hasAnyAuthority("ADMIN", "CHIEF_DOCTOR", "MOH", "DOCTOR")
                 .antMatchers("api/doctors/add/").hasAnyAuthority("ADMIN", "CHIEF_DOCTOR", "MOH")
-                .antMatchers("api/patient/findall").hasAnyAuthority("ADMIN", "USER")
+                .antMatchers("api/patient/findall/**").hasAnyAuthority("ADMIN", "MOH")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().permitAll()

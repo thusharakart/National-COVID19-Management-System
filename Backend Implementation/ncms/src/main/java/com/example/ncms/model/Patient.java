@@ -57,13 +57,13 @@ public class Patient {
 
     @Column(
             name = "x_cord",
-            nullable = true
+            nullable = false
     )
     private double xCord;
 
     @Column(
             name = "y_cord",
-            nullable = true
+            nullable = false
     )
     private double yCord;
 
