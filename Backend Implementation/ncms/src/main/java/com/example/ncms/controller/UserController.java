@@ -1,6 +1,6 @@
 package com.example.ncms.controller;
 
-import com.example.ncms.model.Users;
+import com.example.ncms.model.User;
 import com.example.ncms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +24,7 @@ public class UserController {
     }*/
 
     @PostMapping(path = "/add")
-    public void addNewUser(@RequestBody Users user){
+    public void addNewUser(@RequestBody User user){
         userService.addNewUser(user);
     }
 }

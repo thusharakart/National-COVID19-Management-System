@@ -1,6 +1,6 @@
 package com.example.ncms.service;
 
-import com.example.ncms.model.Users;
+import com.example.ncms.model.User;
 import com.example.ncms.dao.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ public class UserService {
         return optionalUser.get().getRole();
     }*/
 
-    public void addNewUser(Users user) {
+    public void addNewUser(User user) {
         // TODO implement the logic
         userRepository.save(user);
     }

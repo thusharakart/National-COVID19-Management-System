@@ -1,7 +1,7 @@
 package com.example.ncms.configurations;
 
 import com.example.ncms.model.Role;
-import com.example.ncms.model.Users;
+import com.example.ncms.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,9 +13,9 @@ import java.util.Set;
 
 public class NcmsUserDetails implements UserDetails {
 
-    private Users user;
+    private User user;
 
-    public NcmsUserDetails(Users user) {
+    public NcmsUserDetails(User user) {
         this.user = user;
     }
 
