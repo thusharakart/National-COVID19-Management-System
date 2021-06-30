@@ -19,8 +19,8 @@ public class HospitalController {
     }
 
     @GetMapping(path = "/findall")
-    public List<Hospital> getHospital(){
-        return hospitalService.getHospital();
+    public List<Hospital> getAllHospitals(){
+        return hospitalService.getAllHospitals();
     }
 
     @PostMapping(path = "/add")

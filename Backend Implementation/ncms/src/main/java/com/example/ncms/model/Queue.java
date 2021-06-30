@@ -5,6 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table
 public class Queue {
+
     @Id
     @SequenceGenerator(
             name = "queue_sequence",
@@ -15,39 +16,24 @@ public class Queue {
             strategy = GenerationType.SEQUENCE,
             generator = "queue_sequence"
     )
-    private int queueNumber;
-    private String patientSerialNo;
+
+    private int patientSerialNo;
     private int status;
 
     public Queue() {
     }
 
-    public Queue(int queueNumber,
-                 String patientSerialNo,
-                 int status) {
-        this.queueNumber = queueNumber;
+    public Queue(int patientSerialNo, int status) {
         this.patientSerialNo = patientSerialNo;
         this.status = status;
     }
 
-    public Queue(String patientSerialNo, int status) {
-        this.patientSerialNo = patientSerialNo;
-        this.status = status;
-    }
 
-    public int getQueueNumber() {
-        return queueNumber;
-    }
-
-    public void setQueueNumber(int queueNumber) {
-        this.queueNumber = queueNumber;
-    }
-
-    public String getPatientSerialNo() {
+    public int getPatientSerialNo() {
         return patientSerialNo;
     }
 
-    public void setPatientSerialNo(String patientSerialNo) {
+    public void setPatientSerialNo(int patientSerialNo) {
         this.patientSerialNo = patientSerialNo;
     }
 
@@ -62,7 +48,6 @@ public class Queue {
     @Override
     public String toString() {
         return "Queue{" +
-                "queueNumber=" + queueNumber +
                 ", patientSerialNo='" + patientSerialNo + '\'' +
                 ", status=" + status +
                 '}';

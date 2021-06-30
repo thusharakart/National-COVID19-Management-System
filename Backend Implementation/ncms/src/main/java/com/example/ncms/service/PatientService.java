@@ -1,5 +1,6 @@
 package com.example.ncms.service;
 
+import com.example.ncms.model.Hospital;
 import com.example.ncms.model.Patient;
 import com.example.ncms.dao.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,14 @@ import java.util.Optional;
 public class PatientService {
 
     private final PatientRepository patientRepository;
+    private final HospitalService hospitalService;
+    private final QueueService queueService;
 
     @Autowired
-    public PatientService(PatientRepository patientRepository) {
+    public PatientService(PatientRepository patientRepository, HospitalService hospitalService, QueueService queueService) {
         this.patientRepository = patientRepository;
+        this.hospitalService = hospitalService;
+        this.queueService = queueService;
     }
 
     public List<Patient> getPatients(){
@@ -25,9 +30,34 @@ public class PatientService {
     public void addNewPatient(Patient patient) {
 
         Optional<Patient> patientOptional = patientRepository.findPatientByNic(patient.getNic());
-        // TODO : implement the add new patient logic here.
+
         if(patientOptional.isPresent()) {
-            throw new IllegalStateException("Patient with the given id is already there in the system!");
+            throw new IllegalStateException("Patient with the given NIC is already there in the system!");
+        }
+
+        int queueNumber = queueService.getQueueCount();
+
+        if (queueNumber > 0 && queueNumber < 4) {
+            // add patient to the queue
+            queueService.addPatientToQueue(patient);
+        }
+        else if (queueNumber >= 4) {
+            // TODO: need to create a hospital
+            //  add a new hospital // queue becomes empty // queued  patients need to add to the hospital
+            System.out.println("WARNING!! Please create a new hospital.");
+            // add patient to the queue
+            queueService.addPatientToQueue(patient);
+        }
+        else { // queueNumber <= 0
+            List<Hospital> hospitalsWithAvailableBeds = hospitalService.getHospitalsWithAvailableBeds();
+            if (hospitalsWithAvailableBeds.isEmpty()) {
+                // add patient to the queue
+                queueService.addPatientToQueue(patient);
+            }
+            // TODO: calculate the distance to get the nearest hospital
+            Hospital nearestHospital = hospitalsWithAvailableBeds.get(0);
+            nearestHospital.addPatient(patient);
+
         }
         patientRepository.save(patient);
     }

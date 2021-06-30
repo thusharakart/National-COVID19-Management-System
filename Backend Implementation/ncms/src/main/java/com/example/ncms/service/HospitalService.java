@@ -17,7 +17,11 @@ public class HospitalService {
         this.hospitalRepository = hospitalRepository;
     }
 
-    public List<Hospital> getHospital(){
+    public List<Hospital> getHospitalsWithAvailableBeds() {
+        return hospitalRepository.findAllByAvailBedsNotNull();
+    }
+
+    public List<Hospital> getAllHospitals(){
         return hospitalRepository.findAll();
     }
 

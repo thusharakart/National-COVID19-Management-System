@@ -21,4 +21,5 @@ public class QueueController {
     public int getQueueCount(){
         return queueService.getQueueCount();
     }
+
 }
