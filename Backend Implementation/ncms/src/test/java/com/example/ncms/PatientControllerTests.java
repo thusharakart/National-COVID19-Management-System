@@ -1,6 +1,7 @@
 package com.example.ncms;
 
 import com.example.ncms.controller.PatientController;
+import com.example.ncms.model.Hospital;
 import com.example.ncms.model.Patient;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,7 @@ public class PatientControllerTests {
         ZoneId zonedId = ZoneId.of( "Asia/Colombo" );
         LocalDate today = LocalDate.now( zonedId );
         patient.setAdmitDate(today);
+
 
         patientController.registerNewPatient(patient);
 

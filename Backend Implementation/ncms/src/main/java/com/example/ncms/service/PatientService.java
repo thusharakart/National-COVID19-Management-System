@@ -23,7 +23,7 @@ public class PatientService {
         this.queueService = queueService;
     }
 
-    public List<Patient> getPatients(){
+    public List<Patient> getPatients() {
         return patientRepository.findAll();
     }
 
@@ -57,7 +57,7 @@ public class PatientService {
             // TODO: calculate the distance to get the nearest hospital
             Hospital nearestHospital = hospitalsWithAvailableBeds.get(0);
             nearestHospital.addPatient(patient);
-
+            patient.setHospital(nearestHospital);
         }
         patientRepository.save(patient);
     }

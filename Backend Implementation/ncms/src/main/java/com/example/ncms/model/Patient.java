@@ -75,10 +75,10 @@ public class Patient {
     private LocalDate dischargedDate;
     private String dischargedBy;
 
-    @NotNull
-    @ManyToOne
+//    @NotNull
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "hospital_id",
-                nullable = false,
+//                nullable = false,
                 referencedColumnName = "id",
                 foreignKey = @ForeignKey(
                         name = "hospital_patient_fk"

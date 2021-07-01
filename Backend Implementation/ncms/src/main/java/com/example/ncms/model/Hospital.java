@@ -1,5 +1,6 @@
 package com.example.ncms.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import lombok.Data;
 
@@ -27,11 +28,12 @@ public class Hospital {
     private LocalDate buildDate;
     private int availBeds;
 
+    @JsonIgnore
     @OneToMany(
-            mappedBy = "hospital",
-            orphanRemoval = true,
-            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
-            fetch = FetchType.LAZY
+            mappedBy = "hospital"
+//            orphanRemoval = true,
+//            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+//            fetch = FetchType.LAZY
     )
     private List<Patient> patients = new ArrayList<>();
 
