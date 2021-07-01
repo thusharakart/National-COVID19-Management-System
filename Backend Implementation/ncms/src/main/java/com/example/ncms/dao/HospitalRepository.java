@@ -12,6 +12,6 @@ import java.util.List;
 public interface HospitalRepository extends JpaRepository<Hospital, Integer> {
 
     @Query
-    List<Hospital> findAllByAvailBedsNotNull();
+    List<Hospital> findAllByAvailBedsGreaterThan(Integer value);
 
 }

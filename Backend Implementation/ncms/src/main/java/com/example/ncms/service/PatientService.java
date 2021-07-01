@@ -35,29 +35,36 @@ public class PatientService {
             throw new IllegalStateException("Patient with the given NIC is already there in the system!");
         }
 
-        int queueNumber = queueService.getQueueCount();
+        int queueCount = queueService.getQueueCount();
 
-        if (queueNumber > 0 && queueNumber < 4) {
+        if (queueCount > 0 && queueCount < 4) {
             // add patient to the queue
             queueService.addPatientToQueue(patient);
+            System.out.println("Patient Added to the queue.");
         }
-        else if (queueNumber >= 4) {
+        else if (queueCount >= 4) {
             // TODO: need to create a hospital
             //  add a new hospital // queue becomes empty // queued  patients need to add to the hospital
             System.out.println("WARNING!! Please create a new hospital.");
             // add patient to the queue
             queueService.addPatientToQueue(patient);
+            System.out.println("Patient Added to the queue.");
         }
-        else { // queueNumber <= 0
+        else { // queueCount <= 0
             List<Hospital> hospitalsWithAvailableBeds = hospitalService.getHospitalsWithAvailableBeds();
             if (hospitalsWithAvailableBeds.isEmpty()) {
                 // add patient to the queue
                 queueService.addPatientToQueue(patient);
             }
-            // TODO: calculate the distance to get the nearest hospital
-            Hospital nearestHospital = hospitalsWithAvailableBeds.get(0);
-            nearestHospital.addPatient(patient);
-            patient.setHospital(nearestHospital);
+            else {
+                // TODO: calculate the distance to get the nearest hospital
+                Hospital nearestHospital = hospitalsWithAvailableBeds.get(0);
+                nearestHospital.addPatient(patient);
+                patient.setHospital(nearestHospital);
+                System.out.println("Patient Added to the hospital");
+                int reducedAvailableBeds = nearestHospital.getAvailBeds() - 1;
+                nearestHospital.setAvailBeds(reducedAvailableBeds);
+            }
         }
         patientRepository.save(patient);
     }
@@ -68,6 +75,5 @@ public class PatientService {
             throw new IllegalStateException("No patient found with the given serial number!");
         }
         return patientOptional.get().getHospital().getName();
-
     }
 }

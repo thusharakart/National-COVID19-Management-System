@@ -18,7 +18,7 @@ public class HospitalService {
     }
 
     public List<Hospital> getHospitalsWithAvailableBeds() {
-        return hospitalRepository.findAllByAvailBedsNotNull();
+        return hospitalRepository.findAllByAvailBedsGreaterThan(0);
     }
 
     public List<Hospital> getAllHospitals(){

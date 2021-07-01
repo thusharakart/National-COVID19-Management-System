@@ -16,39 +16,47 @@ public class Queue {
             strategy = GenerationType.SEQUENCE,
             generator = "queue_sequence"
     )
+    private int queueNumber;
 
-    private int patientSerialNo;
-    private int status;
+    private String patientNic;
+    private String status;
 
     public Queue() {
     }
 
-    public Queue(int patientSerialNo, int status) {
-        this.patientSerialNo = patientSerialNo;
+    public Queue(String patientNic, String status) {
+        this.patientNic = patientNic;
         this.status = status;
     }
 
-
-    public int getPatientSerialNo() {
-        return patientSerialNo;
+    public int getQueueNumber() {
+        return queueNumber;
     }
 
-    public void setPatientSerialNo(int patientSerialNo) {
-        this.patientSerialNo = patientSerialNo;
+    public void setQueueNumber(int queueNumber) {
+        this.queueNumber = queueNumber;
     }
 
-    public int getStatus() {
+    public String getPatientNic() {
+        return patientNic;
+    }
+
+    public void setPatientNic(String patientNic) {
+        this.patientNic = patientNic;
+    }
+
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
     @Override
     public String toString() {
         return "Queue{" +
-                ", patientSerialNo='" + patientSerialNo + '\'' +
+                ", patientNic='" + patientNic + '\'' +
                 ", status=" + status +
                 '}';
     }

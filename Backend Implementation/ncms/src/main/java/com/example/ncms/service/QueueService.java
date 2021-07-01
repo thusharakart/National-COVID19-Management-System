@@ -22,7 +22,8 @@ public class QueueService {
 
     public void addPatientToQueue(Patient patient){
         Queue queuedPatient = new Queue();
-        queuedPatient.setPatientSerialNo(patient.getSerialNo());
+        queuedPatient.setPatientNic(patient.getNic());
+        queuedPatient.setStatus(patient.getSeverityLevel());
         queueRepository.save(queuedPatient);
     }
 }

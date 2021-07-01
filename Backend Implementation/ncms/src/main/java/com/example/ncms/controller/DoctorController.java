@@ -3,12 +3,10 @@ package com.example.ncms.controller;
 import com.example.ncms.model.Doctor;
 import com.example.ncms.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000/")
 @RequestMapping(path = "api/doctor")
 public class DoctorController {
 
