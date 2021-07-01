@@ -80,4 +80,8 @@ public class PatientService {
     public Optional<Patient> findPatientById(int patientId) {
         return patientRepository.findById(patientId);
     }
+
+    public List<Patient> findAllByHospitalId(int hospitalId) {
+        return patientRepository.findAllByHospitalId(hospitalId);
+    }
 }

@@ -25,6 +25,13 @@ public class PatientController {
         return patientService.getPatients();
     }
 
+    @GetMapping(path="/find_all_by_hospital/{hospital_id}/")
+    public List<Patient> getPatientsByHospitalId(
+            @PathVariable("hospital_id") int hospitalId
+    ){
+        return patientService.findAllByHospitalId(hospitalId);
+    }
+
     @PostMapping(path = "/add")
     public void registerNewPatient(@RequestBody Patient patient) { // get the request body and map it to a patient
         System.out.println(patient);

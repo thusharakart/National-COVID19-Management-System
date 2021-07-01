@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository   // This interface is responsible for data access
@@ -16,4 +17,7 @@ public interface PatientRepository extends JpaRepository<Patient, Integer> {
 
     @Query
     Optional<Patient> findPatientBySerialNo(String serialNo);
+
+    @Query
+    List<Patient> findAllByHospitalId(Integer hospitalId);
 }
