@@ -2,6 +2,7 @@ package com.example.ncms.controller;
 
 import com.example.ncms.model.Patient;
 import com.example.ncms.service.PatientService;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,4 +35,5 @@ public class PatientController {
     public String getHospitalNameByPatientID(@PathVariable("patient_id") String patientId){
         return patientService.getHospitalNameByPatientID(patientId);
     }
+
 }

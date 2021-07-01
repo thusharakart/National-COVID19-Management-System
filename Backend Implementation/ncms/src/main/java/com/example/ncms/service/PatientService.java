@@ -76,4 +76,8 @@ public class PatientService {
         }
         return patientOptional.get().getHospital().getName();
     }
+
+    public Optional<Patient> findPatientById(int patientId) {
+        return patientRepository.findById(patientId);
+    }
 }

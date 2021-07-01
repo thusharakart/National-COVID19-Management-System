@@ -2,6 +2,7 @@ package com.example.ncms.controller;
 
 import com.example.ncms.model.Hospital;
 import com.example.ncms.service.HospitalService;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,5 +28,13 @@ public class HospitalController {
     @PostMapping(path = "/add")
     public void addNewHospital(@RequestBody Hospital hospital){
         hospitalService.addNewHospital(hospital);
+    }
+
+    @PutMapping(path = "/{hospital_id}/admit_patient/{patient_id}")
+    public Hospital admitPatientToHospital(
+            @PathVariable("patient_id") int patientId,
+            @PathVariable("hospital_id") int hospitalId
+    ) throws NotFoundException {
+        return hospitalService.admitPatientToHospital(patientId, hospitalId);
     }
 }
