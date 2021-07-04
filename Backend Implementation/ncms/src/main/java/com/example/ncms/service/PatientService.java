@@ -84,4 +84,12 @@ public class PatientService {
     public List<Patient> findAllByHospitalId(int hospitalId) {
         return patientRepository.findAllByHospitalId(hospitalId);
     }
+
+    public void deletePatientById(int patientId) {
+        boolean exists =  patientRepository.existsById(patientId);
+        if(!exists){
+            throw new IllegalStateException("Patient with id " + patientId + " does not exits.");
+        }
+        patientRepository.deleteById(patientId);
+    }
 }
