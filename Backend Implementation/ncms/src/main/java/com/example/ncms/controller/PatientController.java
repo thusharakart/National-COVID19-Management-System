@@ -32,6 +32,13 @@ public class PatientController {
         return patientService.findAllByHospitalId(hospitalId);
     }
 
+    @GetMapping(path="/find_id_by_nic/{patient_nic}/")
+    public int getPatientIdByNic(
+            @PathVariable("patient_nic") String patientNic
+    ) throws NotFoundException {
+        return patientService.getPatientIdByNic(patientNic);
+    }
+
     @PostMapping(path = "/add")
     public void registerNewPatient(@RequestBody Patient patient) { // get the request body and map it to a patient
         System.out.println(patient);

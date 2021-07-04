@@ -52,4 +52,19 @@ public class HospitalService {
         hospital.addPatient(patient);
         return hospitalRepository.save(hospital);
     }
+
+
+    public Hospital dischargePatientFromHospital(int patientId, int hospitalId) throws NotFoundException {
+        Optional<Patient> OptionalPatient = patientRepository.findById(patientId);
+        Optional<Hospital> OptionalHospital = hospitalRepository.findById(hospitalId);
+        // handle the unknown patient and hospital IDs
+        if(OptionalPatient.isEmpty() || OptionalHospital.isEmpty()){
+            throw new NotFoundException("patient or hospital not found with given id");
+        }
+        Hospital hospital = OptionalHospital.get();
+        Patient patient = OptionalPatient.get();
+        // discharge patient from the hospital
+        hospital.removePatient(patient);
+        return hospitalRepository.save(hospital);
+    }
 }

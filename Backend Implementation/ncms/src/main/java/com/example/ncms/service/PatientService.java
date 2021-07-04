@@ -3,6 +3,7 @@ package com.example.ncms.service;
 import com.example.ncms.model.Hospital;
 import com.example.ncms.model.Patient;
 import com.example.ncms.dao.PatientRepository;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -91,5 +92,13 @@ public class PatientService {
             throw new IllegalStateException("Patient with id " + patientId + " does not exits.");
         }
         patientRepository.deleteById(patientId);
+    }
+
+    public int getPatientIdByNic(String patientNic) throws NotFoundException {
+        Optional<Patient> OptionalPatient = patientRepository.findPatientByNic(patientNic);
+        if(OptionalPatient.isEmpty()){
+            throw new NotFoundException("No patient found with given NIC");
+        }
+        return OptionalPatient.get().getSerialNo();
     }
 }

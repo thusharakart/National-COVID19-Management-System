@@ -37,4 +37,12 @@ public class HospitalController {
     ) throws NotFoundException {
         return hospitalService.admitPatientToHospital(patientId, hospitalId);
     }
+
+    @PutMapping(path = "/{hospital_id}/discharge_patient/{patient_id}")
+    public Hospital dischargePatient(
+            @PathVariable("hospital_id") int hospitalId,
+            @PathVariable("patient_id") int patientId
+    ) throws NotFoundException {
+        return hospitalService.dischargePatientFromHospital(patientId, hospitalId);
+    }
 }
