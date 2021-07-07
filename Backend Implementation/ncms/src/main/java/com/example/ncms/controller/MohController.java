@@ -3,10 +3,7 @@ package com.example.ncms.controller;
 import com.example.ncms.model.MoH;
 import com.example.ncms.service.MohService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,8 +19,13 @@ public class MohController {
         this.mohService = mohService;
     }
 
-    @GetMapping
+    @GetMapping(path="/find_all")
     public List<MoH> getMoH(){
         return mohService.getMoH();
+    }
+
+    @PostMapping(path="/add")
+    public MoH registerNewMoh(@RequestBody MoH moh){
+        return mohService.registerNewMoh(moh);
     }
 }

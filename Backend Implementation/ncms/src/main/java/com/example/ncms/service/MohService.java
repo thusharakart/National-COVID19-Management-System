@@ -20,4 +20,8 @@ public class MohService {
     public List<MoH> getMoH(){
         return mohRepository.findAll();
     }
+
+    public MoH registerNewMoh(MoH moh) {
+        return mohRepository.save(moh);
+    }
 }

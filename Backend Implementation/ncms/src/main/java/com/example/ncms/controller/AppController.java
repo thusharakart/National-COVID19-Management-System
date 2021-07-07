@@ -12,4 +12,7 @@ public class AppController {
     public String viewHomePage() {
         return "index";
     }
+
+    @GetMapping(path="/403")
+    public String viewAccessDeniedPage(){return "error/403";}
 }

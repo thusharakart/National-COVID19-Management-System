@@ -5,6 +5,8 @@ import com.example.ncms.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:3000/")
 @RequestMapping(path = "api/doctor")
@@ -20,6 +22,11 @@ public class DoctorController {
     @PostMapping(path = "/add")
     public void addNewDoctor(@RequestBody Doctor doctor){
         doctorService.addNewDoctor(doctor);
+    }
+
+    @GetMapping(path = "/find_all")
+    public List<Doctor> getAllDoctors(){
+        return doctorService.getAllDoctors();
     }
 
 

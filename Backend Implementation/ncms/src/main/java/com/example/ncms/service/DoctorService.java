@@ -5,6 +5,8 @@ import com.example.ncms.model.Doctor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DoctorService {
 
@@ -17,5 +19,9 @@ public class DoctorService {
 
     public void addNewDoctor(Doctor doctor) {
         doctorRepository.save(doctor);
+    }
+
+    public List<Doctor> getAllDoctors() {
+        return doctorRepository.findAll();
     }
 }
