@@ -17,9 +17,20 @@ export default class PatientComponent extends Component {
 	// }
 
 	componentDidMount() {
-		axios.get("http://localhost:8080/rest/books").then((data) => {
-			this.setState({ patients: data });
-		});
+		const auth =
+			"Bearer " +
+			"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyNTc1Mjg3MSwiaWF0IjoxNjI1NzM0ODcxfQ.IW1krbh_dKTx1qAjaAunB92Q-N3IfyRtgB63A0t7JrsjJcj_vHB56Fqp1K4CSnDdg3zZThSU3lLlmR2LDYgAfA"; //localStorage.getItem("token");
+
+		axios
+			.get("http://localhost:8080/api/patient/find_all", {
+				headers: {
+					Authorization: auth,
+				},
+			})
+			.then((response) => {
+				console.log(response.data);
+				this.setState({ patients: response.data });
+			});
 	}
 
 	render() {

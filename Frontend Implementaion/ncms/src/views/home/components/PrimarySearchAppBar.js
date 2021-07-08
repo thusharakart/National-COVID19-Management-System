@@ -197,9 +197,9 @@ export default function PrimarySearchAppBar() {
 						/>
 					</div>
 					<div className={classes.tabs}>
-						<Tab label="Active" />
-						<Tab label="Active" />
-						<Tab label="Active" />
+						<Tab label="HOSPITALS" />
+						<Tab label="PATIENTS" />
+						<Tab label="DOCTORS" />
 					</div>
 					<div className={classes.grow} />
 					<div className={classes.sectionDesktop}>
