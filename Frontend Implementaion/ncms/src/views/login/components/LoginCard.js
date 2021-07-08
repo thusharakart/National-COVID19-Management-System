@@ -45,12 +45,11 @@ const Login = () => {
 		pageContent: {
 			margin: theme.spacing(5),
 			padding: theme.spacing(3),
-			padding: 20,
-			height: "45vh",
+			height: "50vh",
 			width: "25%",
 			borderRadius: "25px",
 			margin: "auto",
-			backgroundColor: "hsla(0, 0%, 90%, 0.4)",
+			backgroundColor: "hsla(0, 0%, 80%, 0.4)",
 		},
 		root: {
 			width: "100%",
