@@ -19,9 +19,7 @@ import { CircularProgress } from "@material-ui/core";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 
-const LOGIN_REST_API_URL = "/login";
-const STU_ID_FROM_SESSION_URL = "/student/getdetailsfromsession";
-const LEC_ID_FROM_SESSION_URL = "/lecturer/getdetailsfromsession";
+const LOGIN_REST_API_URL = "http://localhost:8080/authenticate";
 
 const initialFValues = {
 	userName: "",
@@ -32,8 +30,10 @@ const loading = {
 	isLoading: false,
 	errorMsg: null,
 	isLoggedAdmin: false,
-	isLoggedStu: false,
-	isLoggedLecturer: false,
+	isLoggedDirector: false,
+	isLoggedDoctor: false,
+	isLoggedStaff: false,
+	isLoggedPatient: false,
 };
 
 const Login = () => {
@@ -65,7 +65,7 @@ const Login = () => {
 		let temp = { ...errors };
 
 		if ("userName" in fieldValues) {
-			temp.userName = fieldValues.userName ? "" : "This field is required.";
+			temp.username = fieldValues.userName ? "" : "This field is required.";
 		}
 
 		if ("password" in fieldValues) {
@@ -76,8 +76,8 @@ const Login = () => {
 			...temp,
 		});
 
-		if (fieldValues == values) {
-			return Object.values(temp).every((x) => x == "");
+		if (fieldValues === values) {
+			return Object.values(temp).every((x) => x === "");
 		}
 	};
 
@@ -96,55 +96,23 @@ const Login = () => {
 		e.preventDefault();
 
 		if (validate()) {
-			console.log(values);
+			values.username = values.userName;
 			setLoading({ isLoading: true });
 			axios
 				.post(LOGIN_REST_API_URL, values)
 				.then((response) => {
-					if (response.data.token && response.data.role) {
+					if (response.data.token) {
 						localStorage.setItem("token", response.data.token);
-
-						if (response.data.role === "ROLE_STUDENT") {
-							const auth = "Bearer " + localStorage.getItem("token");
-							axios
-								.get(STU_ID_FROM_SESSION_URL, {
-									headers: {
-										Authorization: auth,
-									},
-								})
-								.then((response) => {
-									localStorage.setItem("sid", response.data.result1);
-									localStorage.setItem("sfn", response.data.result2);
-									localStorage.setItem("sen", response.data.result3);
-									localStorage.setItem("sln", response.data.result4);
-									setLoading({ isLoggedStu: true, isLoading: false });
-								})
-								.catch((error) => {
-									console.log("error =", error);
-								});
-						} else if (response.data.role === "ROLE_ADMIN") {
-							localStorage.setItem("lid", "6033d1cae9edf6486d1dca53");
-
+						if (response.data.roles.includes("ADMIN")) {
 							setLoading({ isLoggedAdmin: true, isLoading: false });
-						} else if (response.data.role == "ROLE_LECTURER") {
-							const auth = "Bearer " + localStorage.getItem("token");
-
-							axios
-								.get(LEC_ID_FROM_SESSION_URL, {
-									headers: {
-										Authorization: auth,
-									},
-								})
-								.then((response) => {
-									console.log(response.data);
-									localStorage.setItem("lid", response.data.result1);
-									localStorage.setItem("lfn", response.data.result2);
-									localStorage.setItem("lln", response.data.result3);
-									setLoading({ isLoggedLecturer: true, isLoading: false });
-								})
-								.catch((error) => {
-									console.log("error =", error);
-								});
+						} else if (response.data.roles.includes("DIRECTOR")) {
+							setLoading({ isLoggedDirector: true, isLoading: false });
+						} else if (response.data.roles.includes("DOCTOR")) {
+							setLoading({ isLoggedDoctor: true, isLoading: false });
+						} else if (response.data.roles.includes("STAFF")) {
+							setLoading({ isLoggedStaff: true, isLoading: false });
+						} else if (response.data.roles.includes("PATIENT")) {
+							setLoading({ isLoggedPatient: true, isLoading: false });
 						}
 					}
 				})
@@ -174,9 +142,9 @@ const Login = () => {
 			) : (
 				""
 			)}
-			{errorObj.isLoggedStu ? <Redirect to={{ pathname: "home" }} /> : ""}
-			{errorObj.isLoggedLecturer ? (
-				<Redirect to={{ pathname: "lecturerdashboard" }} />
+			{errorObj.isLoggedPatient ? <Redirect to={{ pathname: "home" }} /> : ""}
+			{errorObj.isLoggedDoctor || errorObj.isLoggedDirector ? (
+				<Redirect to={{ pathname: "doctordashboard" }} />
 			) : (
 				""
 			)}

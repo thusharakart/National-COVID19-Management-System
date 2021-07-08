@@ -8,7 +8,7 @@ export default function Home() {
 	return (
 		<div>
 			{/* <PrimarySearchAppBar /> */}
-			{/* <Login /> */}
+			<Login />
 			{/* <LoginCard /> */}
 			{/* <Error404 /> */}
 		</div>
