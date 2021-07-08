@@ -10,11 +10,13 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.xml.transform.Result;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.google.gson.Gson;
 
 
 @RestController
@@ -32,7 +34,8 @@ public class JwtAuthenticationController {
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
-
+        System.out.println("username : " + authenticationRequest.getUsername());
+        System.out.println("password : " + authenticationRequest.getPassword());
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
         final UserDetails userDetails = userDetailsService
@@ -40,7 +43,19 @@ public class JwtAuthenticationController {
 
         final String token = jwtTokenUtil.generateToken(userDetails);
 
-        return ResponseEntity.ok(new JwtResponse(token));
+        Object[] roles_array = userDetails.getAuthorities().toArray();
+
+        // Create a new instance of Gson
+        Gson gson = new Gson();
+
+        // Convert strings array into JSON string
+        String roles = gson.toJson(roles_array);
+
+        Map<String,String> response = new HashMap();
+        response.put("token",token);
+        response.put("roles",roles);
+
+        return ResponseEntity.ok(response);
     }
 
     private void authenticate(String username, String password) throws Exception {
@@ -52,4 +67,5 @@ public class JwtAuthenticationController {
             throw new Exception("INVALID_CREDENTIALS", e);
         }
     }
+
 }
