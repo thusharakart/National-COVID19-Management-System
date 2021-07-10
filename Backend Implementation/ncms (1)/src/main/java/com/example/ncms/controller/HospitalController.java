@@ -20,7 +20,7 @@ public class HospitalController {
         this.hospitalService = hospitalService;
     }
 
-    @GetMapping(path = "/findall")
+    @GetMapping(path = "/find_all")
     public List<Hospital> getAllHospitals(){
         return hospitalService.getAllHospitals();
     }

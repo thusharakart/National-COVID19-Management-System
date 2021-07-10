@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -37,6 +38,11 @@ public class PatientController {
             @PathVariable("patient_nic") String patientNic
     ) throws NotFoundException {
         return patientService.getPatientIdByNic(patientNic);
+    }
+
+    @GetMapping(path="/get_stat_districts")
+    public Map<String, Integer> getDistrictStats(){
+        return patientService.getDistrictsStats();
     }
 
     @PostMapping(path = "/add")

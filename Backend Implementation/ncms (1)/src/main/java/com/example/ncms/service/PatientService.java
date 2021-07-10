@@ -7,7 +7,9 @@ import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -100,5 +102,20 @@ public class PatientService {
             throw new NotFoundException("No patient found with given NIC");
         }
         return OptionalPatient.get().getSerialNo();
+    }
+
+    public Map<String, Integer> getDistrictsStats() {
+        Map<String, Integer> map = new HashMap<>();
+        int total_patients_in_colombo = patientRepository.findCountByDistrict("Colombo");
+        int total_patients_in_kaluthara = patientRepository.findCountByDistrict("Kaluthara");
+        int total_patients_in_gampaha = patientRepository.findCountByDistrict("Gampaha");
+        int total_patients_in_galle = patientRepository.findCountByDistrict("Galle");
+        int total_patients_in_kandy = patientRepository.findCountByDistrict("Kandy");
+        map.put("Kaluthara", total_patients_in_kaluthara);
+        map.put("Colombo", total_patients_in_colombo);
+        map.put("Gampaha", total_patients_in_gampaha);
+        map.put("Galle", total_patients_in_galle);
+        map.put("Kandy", total_patients_in_kandy);
+        return map;
     }
 }
