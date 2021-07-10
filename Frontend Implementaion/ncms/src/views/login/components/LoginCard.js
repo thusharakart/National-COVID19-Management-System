@@ -138,7 +138,8 @@ const Login = () => {
 	return (
 		<>
 			{errorObj.isLoggedAdmin ? (
-				<Redirect to={{ pathname: "adminpanel" }} />
+				// <Redirect to={{ pathname: "adminpanel" }} />
+				<Redirect to={{ pathname: "/home" }} />
 			) : (
 				""
 			)}
