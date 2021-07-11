@@ -4,17 +4,20 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import InputBase from "@material-ui/core/InputBase";
+// import InputBase from "@material-ui/core/InputBase";
 import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
-import MenuIcon from "@material-ui/icons/Menu";
-import SearchIcon from "@material-ui/icons/Search";
+// import MenuIcon from "@material-ui/icons/Menu";
+// import SearchIcon from "@material-ui/icons/Search";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
-import MoreIcon from "@material-ui/icons/MoreVert";
-import Tab from "@material-ui/core/Tab";
+// import MoreIcon from "@material-ui/icons/MoreVert";
+// import Tab from "@material-ui/core/Tab";
+import { Redirect } from "react-router";
+import { useState } from "react";
+import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
 	grow: {
@@ -87,6 +90,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PrimarySearchAppBar() {
+	const [isLoggedIn, setIsLoggedIn] = useState(true);
+	const [clickedPatient, setClickedPatient] = useState(false);
 	const classes = useStyles();
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -107,9 +112,19 @@ export default function PrimarySearchAppBar() {
 		handleMobileMenuClose();
 	};
 
-	const handleMobileMenuOpen = (event) => {
-		setMobileMoreAnchorEl(event.currentTarget);
+	const logout = (e) => {
+		e.preventDefault();
+		setIsLoggedIn(false);
+		localStorage.clear();
 	};
+
+	const redirectPatient = (e) => {
+		e.preventDefault();
+		setClickedPatient(true);
+	};
+	// const handleMobileMenuOpen = (event) => {
+	// 	setMobileMoreAnchorEl(event.currentTarget);
+	// };
 
 	const menuId = "primary-search-account-menu";
 	const renderMenu = (
@@ -170,9 +185,71 @@ export default function PrimarySearchAppBar() {
 
 	return (
 		<div className={classes.grow}>
+			{!isLoggedIn ? <Redirect to={{ pathname: "/" }} /> : ""}
+			{clickedPatient ? (
+				<Redirect to={{ pathname: "/patient_registration" }} />
+			) : (
+				""
+			)}
+			{localStorage.getItem("token") === null ? (
+				<Redirect to={{ pathname: "/home" }} />
+			) : (
+				""
+			)}
 			<AppBar position="static">
 				<Toolbar>
-					<IconButton
+					<Typography className={classes.title} variant="h6" noWrap>
+						Covid Management System
+					</Typography>
+
+					{!(localStorage.getItem("token") === null) && isLoggedIn ? (
+						<div
+							style={{
+								paddingLeft: "40%",
+							}}
+						>
+							<h5>Hi {localStorage.getItem("username")}</h5>
+						</div>
+					) : (
+						<Redirect to={{ pathname: "/home" }} />
+					)}
+					{!(localStorage.getItem("token") === null) &&
+					isLoggedIn &&
+					localStorage.getItem("roles").includes("ADMIN") ? (
+						<div
+							style={{
+								paddingLeft: "5%",
+							}}
+						>
+							<Button onClick={redirectPatient} color="secondary">
+								Patient
+							</Button>
+						</div>
+					) : (
+						""
+					)}
+					<div
+						style={{
+							paddingLeft: "5%",
+						}}
+					>
+						<Button onClick={logout} color="secondary">
+							logout
+						</Button>
+					</div>
+					<div style={{ paddingLeft: "5%" }}>
+						<IconButton
+							edge="end"
+							aria-label="account of current user"
+							aria-controls={menuId}
+							aria-haspopup="true"
+							onClick={handleProfileMenuOpen}
+							color="inherit"
+						>
+							<AccountCircle />
+						</IconButton>
+					</div>
+					{/* <IconButton
 						edge="start"
 						className={classes.menuButton}
 						color="inherit"
@@ -234,7 +311,7 @@ export default function PrimarySearchAppBar() {
 						>
 							<MoreIcon />
 						</IconButton>
-					</div>
+					</div> */}
 				</Toolbar>
 			</AppBar>
 			{renderMobileMenu}

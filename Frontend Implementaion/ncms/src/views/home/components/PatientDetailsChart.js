@@ -11,9 +11,7 @@ export default class PatientDetailsChart extends Component {
 	}
 
 	componentDidMount() {
-		const auth =
-			"Bearer " +
-			"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyNTkzNDkyMiwiaWF0IjoxNjI1OTE2OTIyfQ.m9pc3-jw3lFroHYFY4xBykq7eUQD-Y7G39VXcZ3XAVIxa4JtQkGUywOTGG5Zgs_6PtHKCx7zciA2_cBOm3Pw8g"; //localStorage.getItem("token");
+		const auth = "Bearer " + localStorage.getItem("token");
 
 		axios
 			.get("http://localhost:8080/api/patient/get_stat_districts", {

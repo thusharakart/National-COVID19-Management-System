@@ -5,7 +5,8 @@ import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import EditIcon from "@material-ui/icons/BorderColorOutlined";
-export default class PatientDetails extends Component {
+
+export default class PatientDetailsWithEdits extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -25,7 +26,7 @@ export default class PatientDetails extends Component {
 			patients: this.state.patients,
 			isEdited: false,
 		});
-		console.log("update button clicked");
+		alert("update button clicked");
 	};
 
 	editPatient = (patient) => {
@@ -82,8 +83,8 @@ export default class PatientDetails extends Component {
 							<th>First Name</th>
 							<th>Last Name</th>
 							<th>Email</th>
-							<th>Sevierity Level</th>
-							<th>Gender</th>
+							<th></th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -94,8 +95,38 @@ export default class PatientDetails extends Component {
 								<td>{patient.firstName}</td>
 								<td>{patient.lastName}</td>
 								<td>{patient.email}</td>
-								<td>{patient.severityLevel}</td>
-								<td>{patient.gender}</td>
+								<td>
+									{this.isEdited ? (
+										<Button
+											variant="contained"
+											color="primary"
+											startIcon={<CloudUploadIcon />}
+											onClick={this.updatePatient.bind(this, patient)}
+										>
+											Update
+										</Button>
+									) : (
+										<Button
+											variant="contained"
+											color="primary"
+											//startIcon={<CloudUploadIcon />}
+											startIcon={<EditIcon />}
+											onClick={this.editPatient.bind(this, patient)}
+										>
+											Edit
+										</Button>
+									)}
+								</td>
+								<td>
+									<Button
+										variant="contained"
+										color="secondary"
+										startIcon={<DeleteIcon />}
+										onClick={this.deletePatient.bind(this, patient)}
+									>
+										Delete
+									</Button>
+								</td>
 							</tr>
 						))}
 					</tbody>

@@ -1,13 +1,10 @@
 import React from "react";
-import PrimarySearchAppBar from "../components/PrimarySearchAppBar";
-//import LoginCard from "../../login/components/LoginCard";
-//import Error404 from "../../error/pages/Error404";
-// import Login from "../../login/pages/Login";
-import PatientDetails from "../components/PatientDetails";
-// import HospitalDetails from "../components/HospitalDetails";
-import PatientDetailsChart from "../components/PatientDetailsChart";
-import PatientDetailsChartGender from "../components/PatientDetailsChartGender";
-import QueueStatus from "../components/QueueStatus";
+import PrimarySearchAppBar from "../../home/components/PrimarySearchAppBar";
+import PatientDetailsWithEdits from "../components/PatientDetailsWithEdits";
+import PatientDetailsChart from "../../home/components/PatientDetailsChart";
+import PatientDetailsChartGender from "../../home/components/PatientDetailsChartGender";
+import QueueStatus from "../../home/components/QueueStatus";
+import PatientRegistration from "./PatientRegistration";
 
 export default function Home() {
 	return (
@@ -24,7 +21,7 @@ export default function Home() {
 						//backgroundColor: "rgb(85, 82, 82)",
 					}}
 				>
-					<PatientDetails />
+					<PatientDetailsWithEdits />
 				</div>
 
 				<div
@@ -70,6 +67,7 @@ export default function Home() {
 			<PatientDetailsChart /> */}
 			{/* <LoginCard /> */}
 			{/* <Error404 /> */}
+			<PatientRegistration />
 		</div>
 	);
 }

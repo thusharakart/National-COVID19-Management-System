@@ -37,6 +37,7 @@ const loading = {
 };
 
 const Login = () => {
+	const [isGuest, setIsGuest] = useState(false);
 	const [errorObj, setLoading] = useState(loading);
 	const [open, setOpen] = React.useState(false);
 	const avatarStyle = { backgroundColor: "#1bbd7e" };
@@ -102,7 +103,11 @@ const Login = () => {
 				.post(LOGIN_REST_API_URL, values)
 				.then((response) => {
 					if (response.data.token) {
+						// save data to the local storage
 						localStorage.setItem("token", response.data.token);
+						localStorage.setItem("roles", response.data.roles);
+						localStorage.setItem("username", response.data.username);
+
 						if (response.data.roles.includes("ADMIN")) {
 							setLoading({ isLoggedAdmin: true, isLoading: false });
 						} else if (response.data.roles.includes("DIRECTOR")) {
@@ -124,6 +129,11 @@ const Login = () => {
 		}
 	};
 
+	const redirectHome = (e) => {
+		e.preventDefault();
+		setIsGuest(true);
+	};
+
 	const handleClose = (event, reason) => {
 		if (reason === "clickaway") {
 			return;
@@ -137,9 +147,10 @@ const Login = () => {
 
 	return (
 		<>
+			{isGuest ? <Redirect to={{ pathname: "/home" }} /> : ""}
 			{errorObj.isLoggedAdmin ? (
 				// <Redirect to={{ pathname: "adminpanel" }} />
-				<Redirect to={{ pathname: "/home" }} />
+				<Redirect to={{ pathname: "/admin" }} />
 			) : (
 				""
 			)}
@@ -198,6 +209,10 @@ const Login = () => {
 							) : (
 								"Sign In"
 							)}
+						</Button>
+
+						<Button onClick={redirectHome} color="primary">
+							Login as a Guest
 						</Button>
 					</Grid>
 				</Grid>
