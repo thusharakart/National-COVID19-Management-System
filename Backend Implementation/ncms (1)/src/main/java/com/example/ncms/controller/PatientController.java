@@ -45,6 +45,11 @@ public class PatientController {
         return patientService.getDistrictsStats();
     }
 
+    @GetMapping(path="/get_stat_gender")
+    public Map<String, Integer> getGenderStats(){
+        return patientService.getGenderStats();
+    }
+
     @PostMapping(path = "/add")
     public void registerNewPatient(@RequestBody Patient patient) { // get the request body and map it to a patient
         System.out.println(patient);

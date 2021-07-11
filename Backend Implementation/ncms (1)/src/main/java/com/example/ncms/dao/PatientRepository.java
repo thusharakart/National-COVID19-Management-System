@@ -23,4 +23,7 @@ public interface PatientRepository extends JpaRepository<Patient, Integer> {
 
     @Query("SELECT COUNT(p) FROM Patient p WHERE p.district = ?1")
     Integer findCountByDistrict(String district);
+
+    @Query("SELECT COUNT(p) FROM Patient p WHERE p.gender = ?1")
+    Integer findCountByGender(String gender);
 }

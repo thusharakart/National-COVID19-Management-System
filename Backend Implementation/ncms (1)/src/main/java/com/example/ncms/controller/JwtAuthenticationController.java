@@ -51,9 +51,13 @@ public class JwtAuthenticationController {
         // Convert strings array into JSON string
         String roles = gson.toJson(roles_array);
 
+        String username = authenticationRequest.getUsername();
+
+        // generate the response
         Map<String,String> response = new HashMap();
         response.put("token",token);
         response.put("roles",roles);
+        response.put("username",username);
 
         return ResponseEntity.ok(response);
     }

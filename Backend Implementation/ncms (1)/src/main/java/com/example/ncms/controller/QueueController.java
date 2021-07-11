@@ -19,7 +19,7 @@ public class QueueController {
         this.queueService = queueService;
     }
 
-    @GetMapping
+    @GetMapping(path="/get_count")
     public int getQueueCount(){
         return queueService.getQueueCount();
     }

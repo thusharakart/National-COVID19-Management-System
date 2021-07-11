@@ -105,17 +105,34 @@ public class PatientService {
     }
 
     public Map<String, Integer> getDistrictsStats() {
+
         Map<String, Integer> map = new HashMap<>();
+
         int total_patients_in_colombo = patientRepository.findCountByDistrict("Colombo");
         int total_patients_in_kaluthara = patientRepository.findCountByDistrict("Kaluthara");
         int total_patients_in_gampaha = patientRepository.findCountByDistrict("Gampaha");
         int total_patients_in_galle = patientRepository.findCountByDistrict("Galle");
         int total_patients_in_kandy = patientRepository.findCountByDistrict("Kandy");
+
         map.put("Kaluthara", total_patients_in_kaluthara);
         map.put("Colombo", total_patients_in_colombo);
         map.put("Gampaha", total_patients_in_gampaha);
         map.put("Galle", total_patients_in_galle);
         map.put("Kandy", total_patients_in_kandy);
+
+        return map;
+    }
+
+    public Map<String, Integer> getGenderStats() {
+
+        Map<String, Integer> map = new HashMap<>();
+
+        int total_male_patients = patientRepository.findCountByGender("Male");
+        int total_female_patients = patientRepository.findCountByGender("Female");
+
+        map.put("Male", total_male_patients);
+        map.put("Female", total_female_patients);
+
         return map;
     }
 }
