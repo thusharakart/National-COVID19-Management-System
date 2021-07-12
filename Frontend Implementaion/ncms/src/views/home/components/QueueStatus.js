@@ -10,18 +10,13 @@ export default class QueueStatus extends Component {
 		this.handleStatusChange = this.handleStatusChange.bind(this);
 	}
 	componentDidMount() {
-		const auth = "Bearer " + localStorage.getItem("token");
-
-		axios
-			.get("http://localhost:8080/api/queue/get_count", {
-				headers: {
-					Authorization: auth,
-				},
-			})
-			.then((response) => {
-				console.log(response.data);
-				this.setState({ queueCount: response.data });
-			});
+		axios.get("http://localhost:8080/api/queue/get_count").then((response) => {
+			console.log(response.data);
+			if (response.data > 4) {
+				alert("IMPORTANT! Queue is almost full. Please build a new hospital.");
+			}
+			this.setState({ queueCount: response.data });
+		});
 	}
 
 	handleStatusChange(status) {

@@ -1,13 +1,19 @@
 import React from "react";
-import PrimarySearchAppBar from "../../home/components/PrimarySearchAppBar";
+import Navbar from "../components/Navbar/Navbar";
 import PatientRegistrationForm from "../components/PatientRegistrationForm";
+import PatientDetailsWithEdits from "../components/PatientDetailsWithEdits";
 
 export default function PatientRegistration() {
 	return (
 		<div>
-			<PrimarySearchAppBar />
-			<div style={{ paddingTop: "3%" }}>
-				<PatientRegistrationForm />
+			<Navbar />
+			<div style={{ display: "flex", flexDirection: "row" }}>
+				<div style={{ padding: "5%" }}>
+					<PatientDetailsWithEdits />
+				</div>
+				<div style={{ paddingTop: "5%" }}>
+					<PatientRegistrationForm />
+				</div>
 			</div>
 		</div>
 	);

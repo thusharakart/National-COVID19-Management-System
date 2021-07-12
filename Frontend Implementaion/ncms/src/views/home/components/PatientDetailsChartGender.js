@@ -11,15 +11,9 @@ export default class PatientDetailsChart extends Component {
 		};
 	}
 
-	componentDidUpdate() {
-		const auth = "Bearer " + localStorage.getItem("token");
-
+	componentDidMount() {
 		axios
-			.get("http://localhost:8080/api/patient/get_stat_gender", {
-				headers: {
-					Authorization: auth,
-				},
-			})
+			.get("http://localhost:8080/api/patient/get_stat_gender")
 			.then((response) => {
 				this.setState({
 					data: {

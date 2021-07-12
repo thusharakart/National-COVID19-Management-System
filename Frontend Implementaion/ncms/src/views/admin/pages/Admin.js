@@ -1,15 +1,16 @@
 import React from "react";
-import PrimarySearchAppBar from "../../home/components/PrimarySearchAppBar";
+// import PrimarySearchAppBar from "../../home/components/PrimarySearchAppBar";
 import PatientDetailsWithEdits from "../components/PatientDetailsWithEdits";
 import PatientDetailsChart from "../../home/components/PatientDetailsChart";
 import PatientDetailsChartGender from "../../home/components/PatientDetailsChartGender";
 import QueueStatus from "../../home/components/QueueStatus";
-import PatientRegistration from "./PatientRegistration";
+import Navbar from "../components/Navbar/Navbar";
 
 export default function Home() {
 	return (
 		<div>
-			<PrimarySearchAppBar />
+			{/* <PrimarySearchAppBar /> */}
+			<Navbar />
 			<div style={{ display: "flex", flexDirection: "row" }}>
 				<div
 					style={{
@@ -67,7 +68,7 @@ export default function Home() {
 			<PatientDetailsChart /> */}
 			{/* <LoginCard /> */}
 			{/* <Error404 /> */}
-			<PatientRegistration />
+			{/* <PatientRegistration /> */}
 		</div>
 	);
 }

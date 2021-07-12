@@ -36,38 +36,30 @@ export default class PatientDetails extends Component {
 		console.log("edit button clicked");
 	};
 
-	deletePatient = (patient) => {
-		//e.preventDefault();
-		const auth = "Bearer " + localStorage.getItem("token");
+	// deletePatient = (patient) => {
+	// 	//e.preventDefault();
+	// 	const auth = "Bearer " + localStorage.getItem("token");
 
-		axios
-			.delete(
-				"http://localhost:8080/api/patient/delete/" + patient.serialNo + "/",
-				{
-					headers: {
-						Authorization: auth,
-					},
-				},
-			)
-			.then((response) => {
-				// console.log(response.data);
-				alert("Deleted the patient with serial no : " + patient.serialNo);
-			});
-	};
+	// 	axios
+	// 		.delete(
+	// 			"http://localhost:8080/api/patient/delete/" + patient.serialNo + "/",
+	// 			{
+	// 				headers: {
+	// 					Authorization: auth,
+	// 				},
+	// 			},
+	// 		)
+	// 		.then((response) => {
+	// 			// console.log(response.data);
+	// 			alert("Deleted the patient with serial no : " + patient.serialNo);
+	// 		});
+	// };
 
 	componentDidMount() {
-		const auth = "Bearer " + localStorage.getItem("token");
-
-		axios
-			.get("http://localhost:8080/api/patient/find_all", {
-				headers: {
-					Authorization: auth,
-				},
-			})
-			.then((response) => {
-				console.log(response.data);
-				this.setState({ patients: response.data });
-			});
+		axios.get("http://localhost:8080/api/patient/find_all").then((response) => {
+			console.log(response.data);
+			this.setState({ patients: response.data });
+		});
 	}
 
 	render() {
@@ -81,7 +73,7 @@ export default class PatientDetails extends Component {
 							<th>NIC</th>
 							<th>First Name</th>
 							<th>Last Name</th>
-							<th>Email</th>
+							{/* <th>Email</th> */}
 							<th>Sevierity Level</th>
 							<th>Gender</th>
 						</tr>
@@ -93,7 +85,7 @@ export default class PatientDetails extends Component {
 								<td>{patient.nic}</td>
 								<td>{patient.firstName}</td>
 								<td>{patient.lastName}</td>
-								<td>{patient.email}</td>
+								{/* <td>{patient.email}</td> */}
 								<td>{patient.severityLevel}</td>
 								<td>{patient.gender}</td>
 							</tr>

@@ -41,99 +41,52 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function PatientRegistrationForm() {
-	const [firstName, setFirstName] = useState("");
-	const [lastName, setLastName] = useState("");
-	const [gender, setGender] = useState("Male");
+	const [name, setName] = useState("");
 	const [district, setDistrict] = useState("Colombo");
 	const [xCord, setLocationX] = useState("");
 	const [yCord, setLocationY] = useState("");
-	const [nic, setNic] = useState("");
-	const [severityLevel, setSeverityLevel] = useState("LOW");
+	const [availBeds, setAvailBeds] = useState(10);
 
 	const { patientRegForm, regLabel, formTitle, forminput } = useStyles();
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const values = {
-			firstName,
-			lastName,
-			nic,
-			gender,
-			severityLevel,
+			name,
 			district,
 			xCord,
 			yCord,
+			availBeds,
 		};
 		console.log(values);
 		const auth = "Bearer " + localStorage.getItem("token");
 		axios
-			.post("http://localhost:8080/api/patient/add", values, {
+			.post("http://localhost:8080/api/hospital/add", values, {
 				headers: {
 					Authorization: auth,
 				},
 			})
 			.then((response) => {
-				alert("Patient Registered Successfully!");
+				alert("Hospital Registered Successfully!");
 			})
 			.catch((err) => {
-				alert("Patient Registration Failed : " + err.message);
+				alert("Hospital Registration Failed : " + err.message);
 			});
 	};
 
 	return (
 		<div className={patientRegForm}>
-			<h2 className={formTitle}>Patient Registration</h2>
+			<h2 className={formTitle}>Hospital Registration</h2>
 
 			<form onSubmit={handleSubmit}>
-				<label className={regLabel}>First Name : </label>
+				<label className={regLabel}>Hospital Name : </label>
 				<input
 					className={forminput}
 					required
 					type="text"
-					value={firstName}
-					onChange={(e) => setFirstName(e.target.value)}
+					value={name}
+					onChange={(e) => setName(e.target.value)}
 				/>
-
-				<label className={regLabel}>Last Name : </label>
-				<input
-					className={forminput}
-					required
-					type="text"
-					value={lastName}
-					onChange={(e) => setLastName(e.target.value)}
-				/>
-
-				<label className={regLabel}>NIC : </label>
-				<input
-					className={forminput}
-					required
-					type="text"
-					value={nic}
-					onChange={(e) => setNic(e.target.value)}
-				/>
-
-				<label className={regLabel}>Gender : </label>
-				<select
-					className={forminput}
-					required
-					value={gender}
-					onChange={(e) => setGender(e.target.value)}
-				>
-					<option value="Male">Male</option>
-					<option value="Female">Female</option>
-				</select>
-
-				<label className={regLabel}>Severity Level : </label>
-				<select
-					className={forminput}
-					required
-					value={severityLevel}
-					onChange={(e) => setSeverityLevel(e.target.value)}
-				>
-					<option value="LOW">LOW</option>
-					<option value="HIGH">HIGH</option>
-					<option value="MODERATE">MODERATE</option>
-				</select>
 
 				<label className={regLabel}>District : </label>
 				<select
@@ -167,6 +120,16 @@ export default function PatientRegistrationForm() {
 					pattern="[0-9]"
 					value={yCord}
 					onChange={(e) => setLocationY(e.target.value)}
+				/>
+
+				<label className={regLabel}>Available Beds: </label>
+				<input
+					className={forminput}
+					required
+					type="number"
+					pattern="[0-9]"
+					value={availBeds}
+					onChange={(e) => setAvailBeds(e.target.value)}
 				/>
 
 				<Button variant="contained" color="primary" type="submit">

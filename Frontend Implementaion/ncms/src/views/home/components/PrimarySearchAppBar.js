@@ -91,7 +91,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PrimarySearchAppBar() {
 	const [isLoggedIn, setIsLoggedIn] = useState(true);
-	const [clickedPatient, setClickedPatient] = useState(false);
+	const [clickedLogin, setClickedLogin] = useState(false);
 	const classes = useStyles();
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -118,10 +118,16 @@ export default function PrimarySearchAppBar() {
 		localStorage.clear();
 	};
 
-	const redirectPatient = (e) => {
+	const logIn = (e) => {
 		e.preventDefault();
-		setClickedPatient(true);
+		setClickedLogin(true);
+		localStorage.clear();
 	};
+
+	// const redirectPatient = (e) => {
+	// 	e.preventDefault();
+	// 	setClickedPatient(true);
+	// };
 	// const handleMobileMenuOpen = (event) => {
 	// 	setMobileMoreAnchorEl(event.currentTarget);
 	// };
@@ -186,11 +192,7 @@ export default function PrimarySearchAppBar() {
 	return (
 		<div className={classes.grow}>
 			{!isLoggedIn ? <Redirect to={{ pathname: "/" }} /> : ""}
-			{clickedPatient ? (
-				<Redirect to={{ pathname: "/patient_registration" }} />
-			) : (
-				""
-			)}
+			{clickedLogin ? <Redirect to={{ pathname: "/" }} /> : ""}
 			{localStorage.getItem("token") === null ? (
 				<Redirect to={{ pathname: "/home" }} />
 			) : (
@@ -199,44 +201,41 @@ export default function PrimarySearchAppBar() {
 			<AppBar position="static">
 				<Toolbar>
 					<Typography className={classes.title} variant="h6" noWrap>
-						Covid Management System
+						National Covid Management System
 					</Typography>
 
 					{!(localStorage.getItem("token") === null) && isLoggedIn ? (
-						<div
-							style={{
-								paddingLeft: "40%",
-							}}
-						>
-							<h5>Hi {localStorage.getItem("username")}</h5>
-						</div>
+						<>
+							<div
+								style={{
+									paddingLeft: "50%",
+								}}
+							>
+								<h5>Hi {localStorage.getItem("username")}</h5>
+							</div>
+
+							<div
+								style={{
+									paddingLeft: "1cm",
+								}}
+							>
+								<Button variant="contained" color="primary" onClick={logout}>
+									logout
+								</Button>
+							</div>
+						</>
 					) : (
-						<Redirect to={{ pathname: "/home" }} />
-					)}
-					{!(localStorage.getItem("token") === null) &&
-					isLoggedIn &&
-					localStorage.getItem("roles").includes("ADMIN") ? (
 						<div
 							style={{
-								paddingLeft: "5%",
+								paddingLeft: "60%",
 							}}
 						>
-							<Button onClick={redirectPatient} color="secondary">
-								Patient
+							<Button variant="contained" color="primary" onClick={logIn}>
+								login
 							</Button>
 						</div>
-					) : (
-						""
 					)}
-					<div
-						style={{
-							paddingLeft: "5%",
-						}}
-					>
-						<Button onClick={logout} color="secondary">
-							logout
-						</Button>
-					</div>
+
 					<div style={{ paddingLeft: "5%" }}>
 						<IconButton
 							edge="end"

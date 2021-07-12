@@ -8,6 +8,9 @@ import Error404 from "./views/error/pages/Error404";
 import Admin from "./views/admin/pages/Admin";
 import DoctorDashBoard from "./views/doctor/pages/DoctorDashBoard";
 import PatientRegistration from "./views/admin/pages/PatientRegistration";
+import MohRegistration from "./views/admin/pages/MohRegistration";
+import DoctorRegistration from "./views/admin/pages/DoctorRegistration";
+import HospitalRegistration from "./views/admin/pages/HospitalRegistration";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
 
@@ -20,6 +23,12 @@ function App() {
 					<Route path="/admin" component={Admin}></Route>
 					<Route path="/doctordashboard" component={DoctorDashBoard} />
 					<Route path="/patient_registration" component={PatientRegistration} />
+					<Route path="/moh_registration" component={MohRegistration} />
+					<Route
+						path="/hospital_registration"
+						component={HospitalRegistration}
+					/>
+					<Route path="/doctor_registration" component={DoctorRegistration} />
 					<Route path="/" component={Login}></Route>
 					<Route component={Error404} />
 				</Switch>
