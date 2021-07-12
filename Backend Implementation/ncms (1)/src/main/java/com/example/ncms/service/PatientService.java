@@ -1,8 +1,10 @@
 package com.example.ncms.service;
 
+import com.example.ncms.dao.QueueRepository;
 import com.example.ncms.model.Hospital;
 import com.example.ncms.model.Patient;
 import com.example.ncms.dao.PatientRepository;
+import com.example.ncms.model.Queue;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,12 +20,14 @@ public class PatientService {
     private final PatientRepository patientRepository;
     private final HospitalService hospitalService;
     private final QueueService queueService;
+    private final QueueRepository queueRepository;
 
     @Autowired
-    public PatientService(PatientRepository patientRepository, HospitalService hospitalService, QueueService queueService) {
+    public PatientService(PatientRepository patientRepository, HospitalService hospitalService, QueueService queueService, QueueRepository queueRepository) {
         this.patientRepository = patientRepository;
         this.hospitalService = hospitalService;
         this.queueService = queueService;
+        this.queueRepository = queueRepository;
     }
 
     public List<Patient> getPatients() {
@@ -72,7 +76,7 @@ public class PatientService {
         patientRepository.save(patient);
     }
 
-    public String getHospitalNameByPatientID(String patientId) {
+    public String getHospitalNameByPatientID(int patientId) {
         Optional<Patient> patientOptional = patientRepository.findPatientBySerialNo(patientId);
         if(patientOptional.isEmpty()){
             throw new IllegalStateException("No patient found with the given serial number!");
@@ -92,6 +96,11 @@ public class PatientService {
         boolean exists =  patientRepository.existsById(patientId);
         if(!exists){
             throw new IllegalStateException("Patient with id " + patientId + " does not exits.");
+        }
+        String patientNic = patientRepository.findPatientBySerialNo(patientId).get().getNic();
+        Optional<Queue> optionalQueue = queueRepository.findByNic(patientNic);
+        if(optionalQueue.isPresent()){
+           queueRepository.deleteById(optionalQueue.get().getQueueNumber());
         }
         patientRepository.deleteById(patientId);
     }

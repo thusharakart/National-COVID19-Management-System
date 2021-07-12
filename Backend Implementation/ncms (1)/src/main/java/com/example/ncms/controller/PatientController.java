@@ -57,7 +57,7 @@ public class PatientController {
     }
 
     @PostMapping(path = "/get_hospital_name/{patient_id}")
-    public String getHospitalNameByPatientID(@PathVariable("patient_id") String patientId){
+    public String getHospitalNameByPatientID(@PathVariable("patient_id") Integer patientId){
         return patientService.getHospitalNameByPatientID(patientId);
     }
 

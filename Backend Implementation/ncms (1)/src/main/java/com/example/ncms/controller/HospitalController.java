@@ -45,4 +45,5 @@ public class HospitalController {
     ) throws NotFoundException {
         return hospitalService.dischargePatientFromHospital(patientId, hospitalId);
     }
+
 }

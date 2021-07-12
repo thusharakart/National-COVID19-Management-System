@@ -16,7 +16,7 @@ public interface PatientRepository extends JpaRepository<Patient, Integer> {
     Optional<Patient> findPatientByNic(String nic);
 
     @Query
-    Optional<Patient> findPatientBySerialNo(String serialNo);
+    Optional<Patient> findPatientBySerialNo(Integer serialNo);
 
     @Query
     List<Patient> findAllByHospitalId(Integer hospitalId);
