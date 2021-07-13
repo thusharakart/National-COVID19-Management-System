@@ -26,7 +26,7 @@ public class HospitalController {
     }
 
     @PostMapping(path = "/add")
-    public void addNewHospital(@RequestBody Hospital hospital){
+    public void addNewHospital(@RequestBody Hospital hospital) throws NotFoundException {
         hospitalService.addNewHospital(hospital);
     }
 
