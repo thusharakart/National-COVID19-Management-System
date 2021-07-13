@@ -29,7 +29,7 @@ export default function Home() {
 					style={{
 						display: "flex",
 						flexDirection: "column",
-						padding: "5%",
+						padding: "2%",
 						// backgroundColor: "rgb(85, 82, 50)",
 					}}
 				>
@@ -42,7 +42,7 @@ export default function Home() {
 							display: "flex",
 							flexDirection: "column",
 							paddingTop: "10%",
-							padding: "8%",
+							padding: "3%",
 							// backgroundColor: "rgb(85, 82, 50)",
 						}}
 					>
