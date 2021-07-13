@@ -30,10 +30,10 @@ public class Hospital {
 
     @JsonIgnore
     @OneToMany(
-            mappedBy = "hospital"
-//            orphanRemoval = true,
-//            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
-//            fetch = FetchType.LAZY
+            mappedBy = "hospital",
+            orphanRemoval = true,
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            fetch = FetchType.LAZY
     )
     private List<Patient> patients = new ArrayList<>();
 
